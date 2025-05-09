@@ -1,0 +1,122 @@
+:root {
+  --font-size-base: 16px;
+  --font-weight-base: 400;
+  --line-height-base: 1.2;
+  --t-duration: 0.4s;
+  --shell-max-width: 1140px;
+  --shell-gutter: 30px;
+  --shell-gutter-tablet: 20px;
+  --shell-gutter-mobile: 15px;
+  --c-black: #000;
+  --c-white: #fff;
+  --c-yellow: #fff0ab;
+  --c-orange: #ff964f;
+  --c-base: #957dad;
+  --c-pink: #d291bc;
+  --c-red: #ff6666;
+  --responsive-ios: 812px;
+  --mobile-small: 374px;
+  --mobile-medium: 575px;
+  --mobile: 767px;
+  --admin-bar: 782px;
+  --tablet: 1023px;
+  --small-desktop: 1199px;
+  --large-desktop: 1399px;
+}
+
+body {
+  min-width: 320px;
+  background: var(--c-white);
+  font-family: var(--ff-sans-serif);
+  font-weight: var(--font-weight-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--c-black);
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+}
+a:hover {
+  text-decoration: none;
+}
+a[href^=tel] {
+  text-decoration: none;
+}
+
+.h1,
+h1,
+.h2,
+h2,
+.h3,
+h3,
+.h4,
+h4,
+.h5,
+h5,
+.h6,
+h6 {
+  margin-bottom: calc(var(--line-height-base)em / 2);
+}
+
+.h1,
+h1 {
+  font-size: 45px;
+}
+
+.h2,
+h2 {
+  font-size: 40px;
+}
+
+.h3,
+h3 {
+  font-size: 35px;
+}
+
+.h4,
+h4 {
+  font-size: 30px;
+}
+
+.h5,
+h5 {
+  font-size: 25px;
+}
+
+.h6,
+h6 {
+  font-size: 20px;
+}
+
+p,
+ul,
+ol,
+dl,
+hr,
+table,
+blockquote {
+  margin-bottom: var(--line-height-base)em;
+}
+
+h1:last-child,
+h2:last-child,
+h3:last-child,
+h4:last-child,
+h5:last-child,
+h6:last-child,
+p:last-child,
+ul:last-child,
+ol:last-child,
+dl:last-child,
+table:last-child,
+blockquote:last-child {
+  margin-bottom: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+/*# sourceMappingURL=base.css.map */
