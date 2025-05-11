@@ -7,6 +7,7 @@ export const postsApiSlice = createApi({
 		baseUrl: import.meta.env.VITE_API_POSTS_URL,
 		credentials: 'include',
 	}),
+	tagTypes: ['Posts'],
 	endpoints: (build) => {
 		return {
 			getAllPosts: build.query<Post[], PostPagination>({
@@ -27,13 +28,15 @@ export const postsApiSlice = createApi({
 					url: `/${id}`,
 					method: 'DELETE',
 				}),
+				invalidatesTags: [{ type: 'Posts', id: 'LIST' }],
 			}),
-			createPost: build.mutation<Post, Omit<Post, 'id'>>({
+			createPost: build.mutation<Post, Post>({
 				query: (post) => ({
 					url: '',
 					method: 'POST',
 					body: post,
 				}),
+				invalidatesTags: [{ type: 'Posts', id: 'LIST' }],
 			}),
 			updatePost: build.mutation<Post, PostsUpdate>({
 				query: ({ post, id }) => ({
