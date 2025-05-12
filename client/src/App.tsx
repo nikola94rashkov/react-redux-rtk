@@ -1,9 +1,16 @@
-import { Button } from '@/components/ui'
+import { Header, Footer } from '@/components/shared'
+import { Router } from '@/router'
 
 export const App = () => {
 	return (
 		<>
-			<Button variant='secondary'>click me</Button>
+			<Header />
+
+			<main>
+				<Router />
+			</main>
+
+			<Footer />
 		</>
 	)
 }
