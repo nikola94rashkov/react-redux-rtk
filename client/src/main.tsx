@@ -9,10 +9,10 @@ import './index.css'
 
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
-		<BrowserRouter>
-			<Provider store={store}>
-				<App />
-			</Provider>
-		</BrowserRouter>
+		<Provider store={store}>
+			<BrowserRouter>
+				cd <App />
+			</BrowserRouter>
+		</Provider>
 	</StrictMode>,
 )

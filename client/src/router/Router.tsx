@@ -12,9 +12,9 @@ const Home = lazy(() =>
 		default: module.Home,
 	})),
 )
-const Login = lazy(() =>
-	import('@/components/views/Auth/Login').then((module) => ({
-		default: module.Login,
+const Auth = lazy(() =>
+	import('src/components/views/Auth').then((module) => ({
+		default: module.Auth,
 	})),
 )
 const NotFound = lazy(() =>
@@ -25,11 +25,6 @@ const NotFound = lazy(() =>
 const SinglePost = lazy(() =>
 	import('@/components/views/Posts/SinglePost').then((module) => ({
 		default: module.SinglePost,
-	})),
-)
-const Register = lazy(() =>
-	import('@/components/views/Auth/Register').then((module) => ({
-		default: module.Register,
 	})),
 )
 
@@ -53,13 +48,13 @@ export const Router = () => {
 						/>
 					}>
 					<Route
-						path='/login'
-						element={<Login />}
+						path='/auth'
+						element={<Auth />}
 					/>
-					<Route
-						path='/register'
-						element={<Register />}
-					/>
+					{/*<Route*/}
+					{/*	path='/register'*/}
+					{/*	element={<Register />}*/}
+					{/*/>*/}
 				</Route>
 				<Route element={<PrivateRoutes condition={true} />}>
 					<Route
