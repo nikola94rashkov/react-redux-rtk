@@ -13,7 +13,7 @@ const Home = lazy(() =>
 	})),
 )
 const Auth = lazy(() =>
-	import('src/components/views/Auth').then((module) => ({
+	import('@/components/views/Auth').then((module) => ({
 		default: module.Auth,
 	})),
 )
