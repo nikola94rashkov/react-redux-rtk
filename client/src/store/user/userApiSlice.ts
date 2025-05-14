@@ -4,7 +4,7 @@ import { User, UserCredentials, UserResponse } from '@/types'
 export const userApiSlice = createApi({
 	reducerPath: 'user',
 	baseQuery: fetchBaseQuery({
-		baseUrl: import.meta.env.VITE_API_AUTH_URL,
+		baseUrl: 'http://localhost:4000/api/auth',
 		credentials: 'include',
 	}),
 	endpoints: (build) => {

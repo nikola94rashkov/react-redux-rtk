@@ -1,13 +1,16 @@
-import { useGetAllPostsQuery } from '@/store/posts/postsApiSlice.ts'
+import { Shell } from '@/components/hoc'
+import { Nav, Logo } from '@/components/shared'
 
 export const Header = () => {
-	const { currentData } = useGetAllPostsQuery({ page: 1, limit: 10 })
-
-	console.log(currentData)
-
 	return (
 		<>
-			<header className='header'>header</header>
+			<header className='header pb-6 pt-6 bg-blue-200 shadow-2xs'>
+				<Shell className='flex items-center justify-between'>
+					<Logo />
+
+					<Nav />
+				</Shell>
+			</header>
 		</>
 	)
 }

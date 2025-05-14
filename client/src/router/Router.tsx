@@ -3,34 +3,34 @@ import { Route, Routes } from 'react-router-dom'
 import { PrivateRoutes } from './PrivateRoutes'
 
 const Dashboard = lazy(() =>
-	import('@/components/views/Dashboard').then((module) => ({
+	import('@/components/layouts/Dashboard').then((module) => ({
 		default: module.Dashboard,
 	})),
 )
 const Home = lazy(() =>
-	import('@/components/views/Home').then((module) => ({
+	import('@/components/layouts/Home').then((module) => ({
 		default: module.Home,
 	})),
 )
 const Auth = lazy(() =>
-	import('@/components/views/Auth').then((module) => ({
+	import('@/components/layouts/Auth').then((module) => ({
 		default: module.Auth,
 	})),
 )
 const NotFound = lazy(() =>
-	import('@/components/views/PageNotFound').then((module) => ({
+	import('@/components/layouts/PageNotFound').then((module) => ({
 		default: module.PageNotFound,
 	})),
 )
 const SinglePost = lazy(() =>
-	import('@/components/views/Posts/SinglePost').then((module) => ({
+	import('@/components/layouts/Posts/SinglePost').then((module) => ({
 		default: module.SinglePost,
 	})),
 )
 
 export const Router = () => {
 	return (
-		<Suspense fallback={<h2>loading</h2>}>
+		<Suspense fallback={<h2>loading...</h2>}>
 			<Routes>
 				<Route
 					path='/'
@@ -40,13 +40,7 @@ export const Router = () => {
 					path='/post/:postId'
 					element={<SinglePost />}
 				/>
-				<Route
-					element={
-						<PrivateRoutes
-							condition={true}
-							navigate='/'
-						/>
-					}>
+				<Route element={<PrivateRoutes navigate='/' />}>
 					<Route
 						path='/auth'
 						element={<Auth />}
@@ -56,7 +50,7 @@ export const Router = () => {
 					{/*	element={<Register />}*/}
 					{/*/>*/}
 				</Route>
-				<Route element={<PrivateRoutes condition={true} />}>
+				<Route element={<PrivateRoutes />}>
 					<Route
 						path='/dashboard'
 						element={<Dashboard />}

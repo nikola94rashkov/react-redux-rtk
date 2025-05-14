@@ -4,7 +4,7 @@ import { Post, PostDetails, PostPagination, PostsUpdate } from '@/types'
 export const postsApiSlice = createApi({
 	reducerPath: 'posts',
 	baseQuery: fetchBaseQuery({
-		baseUrl: import.meta.env.VITE_API_POSTS_URL,
+		baseUrl: 'http://localhost:4000/api/posts',
 		credentials: 'include',
 	}),
 	tagTypes: ['Posts'],

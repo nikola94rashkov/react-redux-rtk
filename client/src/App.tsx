@@ -6,7 +6,7 @@ export const App = () => {
 		<>
 			<Header />
 
-			<main>
+			<main className='main'>
 				<Router />
 			</main>
 
