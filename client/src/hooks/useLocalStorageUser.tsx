@@ -1,16 +1,13 @@
 import { useEffect, useState } from 'react'
-
-type UserData = {
-	id: string
-}
+import { UserCookie } from '@/types'
 
 export const useLocalStorageUser = (): {
-	user: UserData | null
+	user: UserCookie | null
 	isLoading: boolean
 	clearUser: () => void
-	setUser: (userData: UserData) => void
+	setUser: (userData: UserCookie) => void
 } => {
-	const [user, setUserState] = useState<UserData | null>(null)
+	const [user, setUserState] = useState<UserCookie | null>(null)
 	const [isLoading, setIsLoading] = useState(true)
 
 	useEffect(() => {
@@ -18,7 +15,7 @@ export const useLocalStorageUser = (): {
 
 		if (storedUser) {
 			try {
-				const parsedUser = JSON.parse(storedUser) as UserData
+				const parsedUser = JSON.parse(storedUser) as UserCookie
 				setUserState(parsedUser)
 			} catch (error) {
 				console.error('Failed to parse user data from localStorage', error)
@@ -34,7 +31,7 @@ export const useLocalStorageUser = (): {
 		setUserState(null)
 	}
 
-	const setUser = (userData: UserData) => {
+	const setUser = (userData: UserCookie) => {
 		localStorage.setItem('user', JSON.stringify(userData))
 		setUserState(userData)
 	}

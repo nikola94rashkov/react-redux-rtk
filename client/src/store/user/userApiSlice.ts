@@ -15,8 +15,6 @@ export const userApiSlice = createApi({
 					method: 'POST',
 					body: {
 						...user,
-						role: 0,
-						registerDate: new Date(),
 					},
 				}),
 			}),
