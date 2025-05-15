@@ -12,9 +12,15 @@ const Home = lazy(() =>
 		default: module.Home,
 	})),
 )
-const Auth = lazy(() =>
-	import('@/components/layouts/Auth').then((module) => ({
-		default: module.Auth,
+const Register = lazy(() =>
+	import('@/components/layouts/Register').then((module) => ({
+		default: module.Register,
+	})),
+)
+
+const Login = lazy(() =>
+	import('@/components/layouts/Login').then((module) => ({
+		default: module.Login,
 	})),
 )
 const NotFound = lazy(() =>
@@ -40,15 +46,21 @@ export const Router = () => {
 					path='/post/:postId'
 					element={<SinglePost />}
 				/>
-				<Route element={<PrivateRoutes navigate='/' />}>
+				<Route
+					element={
+						<PrivateRoutes
+							shouldBeAuthenticated={false}
+							navigate='/'
+						/>
+					}>
 					<Route
-						path='/auth'
-						element={<Auth />}
+						path='/login'
+						element={<Login />}
 					/>
-					{/*<Route*/}
-					{/*	path='/register'*/}
-					{/*	element={<Register />}*/}
-					{/*/>*/}
+					<Route
+						path='/register'
+						element={<Register />}
+					/>
 				</Route>
 				<Route element={<PrivateRoutes />}>
 					<Route

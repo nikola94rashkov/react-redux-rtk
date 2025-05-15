@@ -1,5 +1,0 @@
-export * from './Auth'
-export * from './Posts'
-export * from './Home'
-export * from './Dashboard'
-export * from './PageNotFound'

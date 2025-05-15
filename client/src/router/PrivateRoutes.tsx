@@ -3,10 +3,14 @@ import { useLocalStorageUser } from '@/hooks'
 
 export const PrivateRoutes = ({
 	navigate = '/login',
+	shouldBeAuthenticated = true,
 }: {
 	navigate?: string
+	shouldBeAuthenticated?: boolean
 }) => {
 	const { user } = useLocalStorageUser()
 
-	return user ? <Outlet /> : <Navigate to={navigate} />
+	const shouldRenderOutlet = shouldBeAuthenticated ? !!user : !user
+
+	return shouldRenderOutlet ? <Outlet /> : <Navigate to={navigate} />
 }
