@@ -1,5 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { Post, PostDetails, PostPagination, PostsUpdate } from '@/types'
+import {
+	Post,
+	PostDetails,
+	PostPagination,
+	PostsList,
+	PostsUpdate,
+} from '@/types'
 
 export const postsApiSlice = createApi({
 	reducerPath: 'posts',
@@ -10,7 +16,7 @@ export const postsApiSlice = createApi({
 	tagTypes: ['Posts'],
 	endpoints: (build) => {
 		return {
-			getAllPosts: build.query<Post[], PostPagination>({
+			getAllPosts: build.query<PostsList, PostPagination>({
 				query: ({ page = 1, limit = 10 }) => `?page=${page}&limit=${limit}`,
 			}),
 			getPostsByUserId: build.query<
@@ -21,16 +27,16 @@ export const postsApiSlice = createApi({
 					`/user/${userId}?page=${page}&limit=${limit}`,
 			}),
 			getPostById: build.query<PostDetails, string>({
-				query: (id) => `/${id}`,
+				query: (_id) => `/${_id}`,
 			}),
 			deletePost: build.mutation<void, string>({
-				query: (id) => ({
-					url: `/${id}`,
+				query: (_id) => ({
+					url: `/${_id}`,
 					method: 'DELETE',
 				}),
 				invalidatesTags: [{ type: 'Posts', id: 'LIST' }],
 			}),
-			createPost: build.mutation<Post, Post>({
+			createPost: build.mutation<Post, Omit<Post, 'id'>>({
 				query: (post) => ({
 					url: '',
 					method: 'POST',
@@ -39,8 +45,8 @@ export const postsApiSlice = createApi({
 				invalidatesTags: [{ type: 'Posts', id: 'LIST' }],
 			}),
 			updatePost: build.mutation<Post, PostsUpdate>({
-				query: ({ post, id }) => ({
-					url: `/${id}`,
+				query: ({ post, _id }) => ({
+					url: `/${_id}`,
 					method: 'PUT',
 					body: post,
 				}),

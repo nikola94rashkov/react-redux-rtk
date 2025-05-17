@@ -1,7 +1,7 @@
 import { UserDocument } from './user'
 
 export type Post = {
-	id?: number
+	_id?: number
 	image: string
 	title: string
 	content: string
@@ -31,7 +31,7 @@ export type PostResponse = {
 
 export type PostsUpdate = {
 	post: PostDetails
-	id: number
+	_id: number
 }
 
 export type PostPagination = {

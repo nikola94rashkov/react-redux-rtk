@@ -17,6 +17,7 @@ import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
 import { useCreateUserMutation } from '@/store/user/userApiSlice.ts'
 import { useLocalStorageUser } from '@/hooks'
+import { Section } from '@/components/hoc'
 
 const schema = z.object({
 	firstName: z.string().min(3),
@@ -87,71 +88,73 @@ export const Register = () => {
 	}
 
 	return (
-		<Form {...form}>
-			<form
-				onSubmit={handleSubmit(onSubmit)}
-				className='space-y-8'>
-				<FormField
-					control={control}
-					name='firstName'
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>First Name</FormLabel>
-							<FormControl>
-								<Input {...field} />
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-				<FormField
-					control={control}
-					name='lastName'
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Last Name</FormLabel>
-							<FormControl>
-								<Input {...field} />
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-				<FormField
-					control={control}
-					name='email'
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>email</FormLabel>
-							<FormControl>
-								<Input {...field} />
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-				<FormField
-					control={control}
-					name='password'
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>password</FormLabel>
-							<FormControl>
-								<Input
-									type='password'
-									{...field}
-								/>
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-				<Button
-					type='submit'
-					disabled={isSubmitting}>
-					Submit
-				</Button>
-			</form>
-		</Form>
+		<Section>
+			<Form {...form}>
+				<form
+					onSubmit={handleSubmit(onSubmit)}
+					className='space-y-8'>
+					<FormField
+						control={control}
+						name='firstName'
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>First Name</FormLabel>
+								<FormControl>
+									<Input {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={control}
+						name='lastName'
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Last Name</FormLabel>
+								<FormControl>
+									<Input {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={control}
+						name='email'
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>email</FormLabel>
+								<FormControl>
+									<Input {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={control}
+						name='password'
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>password</FormLabel>
+								<FormControl>
+									<Input
+										type='password'
+										{...field}
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<Button
+						type='submit'
+						disabled={isSubmitting}>
+						Submit
+					</Button>
+				</form>
+			</Form>
+		</Section>
 	)
 }
