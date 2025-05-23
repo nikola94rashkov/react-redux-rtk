@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom'
-import { useLocalStorageUser } from '@/hooks'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/store/store.ts'
 
 export const PrivateRoutes = ({
 	navigate = '/login',
@@ -8,8 +9,7 @@ export const PrivateRoutes = ({
 	navigate?: string
 	shouldBeAuthenticated?: boolean
 }) => {
-	const { user } = useLocalStorageUser()
-
+	const { user } = useSelector((state: RootState) => state.authSlice)
 	const shouldRenderOutlet = shouldBeAuthenticated ? !!user : !user
 
 	return shouldRenderOutlet ? <Outlet /> : <Navigate to={navigate} />

@@ -15,6 +15,8 @@ export const App = () => {
 		dispatch(initializeAuth())
 	}, [dispatch])
 
+	console.log('dispatch', dispatch(initializeAuth()))
+
 	return (
 		<>
 			<Header />

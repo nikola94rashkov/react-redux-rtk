@@ -18,7 +18,7 @@ export const userApiSlice = createApi({
 					},
 				}),
 			}),
-			login: build.mutation<User, UserCredentials>({
+			login: build.mutation<UserResponse, UserCredentials>({
 				query: (user) => ({
 					url: '/login',
 					method: 'POST',

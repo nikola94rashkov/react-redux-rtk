@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { z } from 'zod'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -16,31 +15,23 @@ import {
 import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
 import { useCreateUserMutation } from '@/store/user/userApiSlice.ts'
-import { useLocalStorageUser } from '@/hooks'
 import { Section } from '@/components/hoc'
-
-const schema = z.object({
-	firstName: z.string().min(3),
-	lastName: z.string().min(3),
-	email: z.string().email(),
-	password: z.string().min(8),
-})
-
-type FormFields = z.infer<typeof schema>
+import {
+	defaultValues,
+	FormFields,
+	schema,
+} from '@/components/layouts/Register/Schema.ts'
+import { useDispatch } from 'react-redux'
+import { setUser } from '@/store/auth/authSlice.ts'
 
 export const Register = () => {
+	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const [createUser] = useCreateUserMutation()
-	const { setUser } = useLocalStorageUser()
 
 	const form = useForm<FormFields>({
 		resolver: zodResolver(schema),
-		defaultValues: {
-			firstName: '',
-			lastName: '',
-			email: '',
-			password: '',
-		},
+		defaultValues,
 		mode: 'onBlur',
 	})
 
@@ -61,10 +52,12 @@ export const Register = () => {
 			const response = await createUser(userData)
 
 			if (response.data?.user) {
-				setUser({
-					_id: response.data.user._id,
-					role: response.data.user.role,
-				})
+				dispatch(
+					setUser({
+						_id: response.data.user._id,
+						role: response.data.user.role,
+					}),
+				)
 			}
 
 			toast.success(`User successfully created!`)

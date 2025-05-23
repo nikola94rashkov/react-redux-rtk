@@ -1,16 +1,16 @@
 import { Shell } from '@/components'
 
-type IShell = {
+type ISection = {
 	children: React.ReactNode
 	className?: string
 }
 
-export const Section = ({ children, className, ...rest }: IShell) => {
+export const Section = ({ children, className, ...rest }: ISection) => {
 	return (
-		<Section
+		<section
 			className={`pt-6 pb-6 ${className}`}
 			{...rest}>
 			<Shell>{children}</Shell>
-		</Section>
+		</section>
 	)
 }
