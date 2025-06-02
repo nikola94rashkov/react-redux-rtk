@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { NavigationMenuItem } from '@/components/ui/navigation-menu.tsx'
-import { NavLinkButtonProps } from '@/components/shared/Nav/types/types.ts'
+import { NavLinkButtonProps } from '@/components/shared/Nav/Nav.types.ts'
 
 export const NavLinkButton = ({
 	text,

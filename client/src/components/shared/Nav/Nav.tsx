@@ -10,7 +10,8 @@ import { clearUser } from '@/store/auth/authSlice.ts'
 import { useLogoutMutation } from '@/store/user/userApiSlice.ts'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
-import { NavLinkButtonProps } from './types/types.ts'
+import { NavLinkButtonProps } from './Nav.types.ts'
+import { data } from '@/components/shared/Nav/data.ts'
 
 export const Nav = () => {
 	const { user } = useSelector((state: RootState) => state.authSlice)
@@ -25,36 +26,7 @@ export const Nav = () => {
 		toast.success(`Logged out successfully`)
 	}
 
-	const navigationConfig = {
-		auth: [
-			{
-				text: 'Home',
-				href: '/',
-			},
-			{
-				text: 'Dashboard',
-				href: '/dashboard',
-			},
-			{
-				text: 'Logout',
-				onClick: () => logOutUser(),
-			},
-		],
-		unauth: [
-			{
-				text: 'Home',
-				href: '/',
-			},
-			{
-				text: 'Login',
-				href: '/login',
-			},
-			{
-				text: 'Register',
-				href: '/register',
-			},
-		],
-	}
+	const navigationConfig = data(logOutUser())
 
 	return (
 		<>
