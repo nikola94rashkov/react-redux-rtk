@@ -3,9 +3,10 @@ import { UserCookie } from '@/types'
 import { AppDispatch } from '@/store/store.ts'
 
 const loadUserFromLocalStorage = (): UserCookie | null => {
-	if (typeof window === 'undefined') return null // SSR safety
+	if (typeof window === 'undefined') return null
 
 	const storedUser = localStorage.getItem('user')
+
 	if (!storedUser) return null
 
 	try {

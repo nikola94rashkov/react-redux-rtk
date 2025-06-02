@@ -15,8 +15,6 @@ export const App = () => {
 		dispatch(initializeAuth())
 	}, [dispatch])
 
-	console.log('dispatch', dispatch(initializeAuth()))
-
 	return (
 		<>
 			<Header />
@@ -24,7 +22,7 @@ export const App = () => {
 			<main className='main'>
 				<Router />
 				<Toaster
-					position='top-right'
+					position='bottom-right'
 					richColors
 					closeButton
 				/>

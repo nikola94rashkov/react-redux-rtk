@@ -1,69 +1,77 @@
 import {
 	NavigationMenu,
-	NavigationMenuItem,
 	NavigationMenuList,
 } from '@/components/ui/navigation-menu.tsx'
 
-import { NavLinkButton } from '@/components/shared'
-import { useSelector } from 'react-redux'
-import { RootState } from '@/store/store.ts'
+import { NavLinkButton } from './NavLinkButton'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '@/store/store.ts'
+import { clearUser } from '@/store/auth/authSlice.ts'
+import { useLogoutMutation } from '@/store/user/userApiSlice.ts'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
+import { NavLinkButtonProps } from './types/types.ts'
 
 export const Nav = () => {
 	const { user } = useSelector((state: RootState) => state.authSlice)
+	const dispatch = useDispatch<AppDispatch>()
+	const [logout] = useLogoutMutation()
+	const navigate = useNavigate()
+
+	const logOutUser = async () => {
+		await logout()
+		dispatch(clearUser())
+		navigate('/login')
+		toast.success(`Logged out successfully`)
+	}
+
+	const navigationConfig = {
+		auth: [
+			{
+				text: 'Home',
+				href: '/',
+			},
+			{
+				text: 'Dashboard',
+				href: '/dashboard',
+			},
+			{
+				text: 'Logout',
+				onClick: () => logOutUser(),
+			},
+		],
+		unauth: [
+			{
+				text: 'Home',
+				href: '/',
+			},
+			{
+				text: 'Login',
+				href: '/login',
+			},
+			{
+				text: 'Register',
+				href: '/register',
+			},
+		],
+	}
 
 	return (
 		<>
-			{user ? (
-				<NavigationMenu>
-					<NavigationMenuList>
-						<NavigationMenuItem>
+			<NavigationMenu>
+				<NavigationMenuList>
+					{(user ? navigationConfig.auth : navigationConfig.unauth).map(
+						({ text, href, onClick }: NavLinkButtonProps, index) => (
 							<NavLinkButton
-								text='Home'
-								href='/'
+								key={index}
+								text={text}
+								href={href}
+								onClick={onClick}
 							/>
-						</NavigationMenuItem>
-
-						<NavigationMenuItem className='font-bold p-2 pl-3 pr-3 bg-amber-50 rounded-2xl hover:bg-amber-100 active:bg-amber-100'>
-							<NavLinkButton
-								text='Dashboard'
-								href='/dashboard'
-							/>
-						</NavigationMenuItem>
-
-						<NavigationMenuItem className='font-bold p-2 pl-3 pr-3 bg-amber-50 rounded-2xl hover:bg-amber-100 active:bg-amber-100'>
-							<NavLinkButton
-								text='Logout'
-								href='/logout'
-							/>
-						</NavigationMenuItem>
-					</NavigationMenuList>
-				</NavigationMenu>
-			) : (
-				<NavigationMenu>
-					<NavigationMenuList>
-						<NavigationMenuItem>
-							<NavLinkButton
-								text='Home'
-								href='/'
-							/>
-						</NavigationMenuItem>
-
-						<NavigationMenuItem className='font-bold p-2 pl-3 pr-3 bg-amber-50 rounded-2xl hover:bg-amber-100 active:bg-amber-100'>
-							<NavLinkButton
-								text='Login'
-								href='/login'
-							/>
-						</NavigationMenuItem>
-
-						<NavigationMenuItem className='font-bold p-2 pl-3 pr-3 bg-amber-50 rounded-2xl hover:bg-amber-100 active:bg-amber-100'>
-							<NavLinkButton
-								text='Register'
-								href='/register'
-							/>
-						</NavigationMenuItem>
-					</NavigationMenuList>
-				</NavigationMenu>
-			)}
+						),
+					)}
+				</NavigationMenuList>
+			</NavigationMenu>
 		</>
 	)
 }
