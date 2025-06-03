@@ -1,5 +1,6 @@
 import { useGetAllPostsQuery } from '@/store/posts/postsApiSlice.ts'
 import { PostDetails } from '@/types'
+import { Section } from '@/components'
 
 export const Home = () => {
 	const { data, isLoading, isError } = useGetAllPostsQuery({
@@ -7,17 +8,17 @@ export const Home = () => {
 		limit: 10,
 	})
 
-	console.log('data', data)
-
 	return (
 		<>
-			{isLoading && <div>Loading...</div>}
+			<Section>
+				{isLoading && <div>Loading...</div>}
 
-			{isError && <div>{isError}</div>}
+				{isError && <div>{isError}</div>}
 
-			{data?.posts.map(({ _id, title }: PostDetails) => {
-				return <h1 key={_id}>{title}</h1>
-			})}
+				{data?.posts.map(({ _id, title }: PostDetails) => {
+					return <h1 key={_id}>{title}</h1>
+				})}
+			</Section>
 		</>
 	)
 }

@@ -20,8 +20,8 @@ export const postsApiSlice = createApi({
 				query: ({ page = 1, limit = 10 }) => `?page=${page}&limit=${limit}`,
 			}),
 			getPostsByUserId: build.query<
-				Post[],
-				PostPagination & { userId: number }
+				PostsList,
+				PostPagination & { userId: string }
 			>({
 				query: ({ page = 1, limit = 10, userId }) =>
 					`/user/${userId}?page=${page}&limit=${limit}`,

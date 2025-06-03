@@ -31,6 +31,8 @@ export const Nav = () => {
 		}
 	}
 
+	console.log('user', user)
+
 	const navigationConfig = data(logOutUser)
 
 	return (
