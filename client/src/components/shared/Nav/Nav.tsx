@@ -20,13 +20,18 @@ export const Nav = () => {
 	const navigate = useNavigate()
 
 	const logOutUser = async () => {
-		await logout()
-		dispatch(clearUser())
-		navigate('/login')
-		toast.success(`Logged out successfully`)
+		try {
+			await logout()
+			dispatch(clearUser())
+			navigate('/login')
+			toast.success(`Logged out successfully`)
+		} catch (e) {
+			console.error(e)
+			toast.error(`Ops, something went wrong!`)
+		}
 	}
 
-	const navigationConfig = data(logOutUser())
+	const navigationConfig = data(logOutUser)
 
 	return (
 		<>

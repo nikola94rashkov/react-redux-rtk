@@ -1,4 +1,4 @@
-export const data = (logOutUser: Promise<void>) => {
+export const data = (logOutUser: () => Promise<void>) => {
 	return {
 		auth: [
 			{
@@ -11,7 +11,7 @@ export const data = (logOutUser: Promise<void>) => {
 			},
 			{
 				text: 'Logout',
-				onClick: () => logOutUser,
+				onClick: logOutUser,
 			},
 		],
 		unauth: [
