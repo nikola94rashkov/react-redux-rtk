@@ -16,10 +16,10 @@ export const App = () => {
 	}, [dispatch])
 
 	return (
-		<>
+		<div className='flex flex-col min-h-screen justify-between'>
 			<Header />
 
-			<main className='main'>
+			<main className='main grow'>
 				<Router />
 				<Toaster
 					position='bottom-right'
@@ -29,6 +29,6 @@ export const App = () => {
 			</main>
 
 			<Footer />
-		</>
+		</div>
 	)
 }

@@ -57,7 +57,7 @@ export const Paging = ({
 					</PaginationLink>
 				</PaginationItem>
 
-				{totalPages > 3 && (
+				{totalPages > currentPage + 1 && (
 					<PaginationItem>
 						<PaginationEllipsis />
 					</PaginationItem>

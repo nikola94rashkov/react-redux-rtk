@@ -3,12 +3,13 @@ import { useSelector } from 'react-redux'
 
 import { RootState } from '@/store/store.ts'
 import { useGetPostsByUserIdQuery } from '@/store/posts/postsApiSlice.ts'
-import { Section, Paging } from '@/components'
+import { Section, Paging, PostList } from '@/components'
+import { Separator } from '@radix-ui/react-separator'
 
 export const Dashboard = () => {
 	const { user } = useSelector((state: RootState) => state.authSlice)
 	const [currentPage, setCurrentPage] = useState(1)
-	const limit = 2
+	const limit = 3
 
 	const queryParams = {
 		page: currentPage,
@@ -33,6 +34,10 @@ export const Dashboard = () => {
 
 				{data && (
 					<>
+						<PostList posts={data.posts} />
+
+						<Separator className='py-8' />
+
 						{user?._id && data?.totalPages > 1 ? (
 							<Paging
 								totalPages={data.totalPages}
