@@ -1,23 +1,41 @@
+import { useState } from 'react'
+import { Paging, PostList, Section } from '@/components'
+import { Separator } from '@radix-ui/react-separator'
 import { useGetAllPostsQuery } from '@/store/posts/postsApiSlice.ts'
-import { PostDetails } from '@/types'
-import { Section } from '@/components'
 
 export const Home = () => {
+	const [currentPage, setCurrentPage] = useState(1)
 	const { data, isLoading, isError } = useGetAllPostsQuery({
-		page: 1,
-		limit: 10,
+		page: currentPage,
+		limit: 5,
 	})
+
+	const handlePageChange = (newPage: number) => {
+		setCurrentPage(newPage)
+	}
 
 	return (
 		<>
 			<Section>
-				{isLoading && <div>Loading...</div>}
+				{isLoading && <div>Loading posts...</div>}
+				{isError && <div>Error loading posts</div>}
+				{!isLoading && !data?.posts.length && <div>No posts found</div>}
 
-				{isError && <div>{isError}</div>}
+				{data && (
+					<>
+						<PostList posts={data.posts} />
 
-				{data?.posts.map(({ _id, title }: PostDetails) => {
-					return <h1 key={_id}>{title}</h1>
-				})}
+						<Separator className='py-8' />
+
+						{data?.totalPages > 1 ? (
+							<Paging
+								totalPages={data.totalPages}
+								currentPage={data.currentPage}
+								handlePageChange={handlePageChange}
+							/>
+						) : null}
+					</>
+				)}
 			</Section>
 		</>
 	)

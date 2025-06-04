@@ -11,19 +11,15 @@ export const Dashboard = () => {
 	const [currentPage, setCurrentPage] = useState(1)
 	const limit = 3
 
-	const queryParams = {
+	const { data, isLoading, isError } = useGetPostsByUserIdQuery({
 		page: currentPage,
 		limit,
 		userId: user?._id ?? '',
-	}
-
-	const { data, isLoading, isError } = useGetPostsByUserIdQuery(queryParams)
+	})
 
 	const handlePageChange = (newPage: number) => {
 		setCurrentPage(newPage)
 	}
-
-	console.log('data', data)
 
 	return (
 		<>
@@ -38,7 +34,7 @@ export const Dashboard = () => {
 
 						<Separator className='py-8' />
 
-						{user?._id && data?.totalPages > 1 ? (
+						{data?.totalPages > 1 ? (
 							<Paging
 								totalPages={data.totalPages}
 								currentPage={data.currentPage}
