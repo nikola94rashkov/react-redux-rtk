@@ -28,11 +28,11 @@ const NotFound = lazy(() =>
 		default: module.PageNotFound,
 	})),
 )
-const SinglePost = lazy(() =>
-	import('@/components/layouts/Posts/SinglePost').then((module) => ({
-		default: module.SinglePost,
-	})),
-)
+// const SinglePost = lazy(() =>
+// 	import('@/components/layouts/Posts/SinglePost').then((module) => ({
+// 		default: module.SinglePost,
+// 	})),
+// )
 
 export const Router = () => {
 	return (
@@ -42,10 +42,10 @@ export const Router = () => {
 					path='/'
 					element={<Home />}
 				/>
-				<Route
-					path='/post/:postId'
-					element={<SinglePost />}
-				/>
+				{/*<Route*/}
+				{/*	path='/post/:postId'*/}
+				{/*	element={<SinglePost />}*/}
+				{/*/>*/}
 				<Route
 					element={
 						<PrivateRoutes

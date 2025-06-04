@@ -1,22 +1,14 @@
-import {
-	Pagination,
-	PaginationContent,
-	PaginationEllipsis,
-	PaginationItem,
-	PaginationLink,
-	PaginationNext,
-	PaginationPrevious,
-	Section,
-} from '@/components'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
+
 import { RootState } from '@/store/store.ts'
 import { useGetPostsByUserIdQuery } from '@/store/posts/postsApiSlice.ts'
-import { useState } from 'react'
+import { Section, Paging } from '@/components'
 
 export const Dashboard = () => {
 	const { user } = useSelector((state: RootState) => state.authSlice)
 	const [currentPage, setCurrentPage] = useState(1)
-	const limit = 10
+	const limit = 2
 
 	const queryParams = {
 		page: currentPage,
@@ -30,6 +22,8 @@ export const Dashboard = () => {
 		setCurrentPage(newPage)
 	}
 
+	console.log('data', data)
+
 	return (
 		<>
 			<Section>
@@ -40,47 +34,11 @@ export const Dashboard = () => {
 				{data && (
 					<>
 						{user?._id && data?.totalPages > 1 ? (
-							<Pagination>
-								<PaginationContent>
-									<PaginationItem>
-										<PaginationPrevious
-											href='#'
-											onClick={(e) => {
-												e.preventDefault()
-												if (currentPage > 1) handlePageChange(currentPage - 1)
-											}}
-										/>
-									</PaginationItem>
-									<PaginationItem>
-										<PaginationLink href='#'>1</PaginationLink>
-									</PaginationItem>
-									<PaginationItem>
-										<PaginationLink
-											href='#'
-											isActive>
-											2
-										</PaginationLink>
-									</PaginationItem>
-									<PaginationItem>
-										<PaginationLink href='#'>3</PaginationLink>
-									</PaginationItem>
-									<PaginationItem>
-										<PaginationEllipsis />
-									</PaginationItem>
-									<PaginationItem>
-										<PaginationLink href='#'>3</PaginationLink>
-									</PaginationItem>
-									<PaginationItem>
-										<PaginationNext
-											href='#'
-											onClick={(e) => {
-												e.preventDefault()
-												handlePageChange(currentPage + 1)
-											}}
-										/>
-									</PaginationItem>
-								</PaginationContent>
-							</Pagination>
+							<Paging
+								totalPages={data.totalPages}
+								currentPage={data.currentPage}
+								handlePageChange={handlePageChange}
+							/>
 						) : null}
 					</>
 				)}

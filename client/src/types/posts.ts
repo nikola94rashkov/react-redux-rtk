@@ -24,6 +24,10 @@ export type PostsList = {
 	currentPage: number
 }
 
+export type PostListPagination = Omit<PostsList, 'posts' | 'totalPosts'> & {
+	handlePageChange: (data: number) => void
+}
+
 export type PostResponse = {
 	message: string
 	post: PostDetails
