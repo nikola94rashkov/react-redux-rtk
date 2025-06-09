@@ -17,7 +17,6 @@ const Register = lazy(() =>
 		default: module.Register,
 	})),
 )
-
 const Login = lazy(() =>
 	import('@/components/layouts/Login').then((module) => ({
 		default: module.Login,
@@ -31,6 +30,11 @@ const NotFound = lazy(() =>
 const SinglePost = lazy(() =>
 	import('@/components/layouts/Posts/SinglePost').then((module) => ({
 		default: module.SinglePost,
+	})),
+)
+const EditPost = lazy(() =>
+	import('@/components/layouts/Posts/EditPost').then((module) => ({
+		default: module.EditPost,
 	})),
 )
 
@@ -66,6 +70,10 @@ export const Router = () => {
 					<Route
 						path='/dashboard'
 						element={<Dashboard />}
+					/>
+					<Route
+						path='/post/edit/:postId'
+						element={<EditPost />}
 					/>
 				</Route>
 				<Route

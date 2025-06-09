@@ -1,4 +1,4 @@
-import { PostDetails } from '@/types'
+import { PostDetails, PostType } from '@/types'
 import {
 	Card,
 	CardContent,
@@ -13,6 +13,10 @@ import { RootState } from '@/store/store.ts'
 import { Link } from 'react-router-dom'
 import { Separator } from '@/components/ui/separator.tsx'
 
+type PostProps = {
+	type?: PostType
+} & PostDetails
+
 export const Post = ({
 	title,
 	author,
@@ -20,54 +24,96 @@ export const Post = ({
 	image,
 	createdAt,
 	_id,
-}: PostDetails) => {
+	type = 'grid',
+}: PostProps) => {
 	const { user } = useSelector((state: RootState) => state.authSlice)
 
 	return (
-		<Card className='hover:shadow-lg transition-shadow'>
-			<Link to={`/post/${_id}`}>
-				<CardHeader>
-					<CardTitle className='text-2xl'>{title}</CardTitle>
-				</CardHeader>
-
-				<Separator className='py-1 bg-transparent' />
-
-				{image && (
-					<CardContent>
-						<div className='relative aspect-video overflow-hidden rounded-lg'>
-							<img
-								src={image}
-								className='object-cover'
-								alt={title}
-							/>
-						</div>
-					</CardContent>
-				)}
-
-				<CardContent>
-					<CardDescription className='line-clamp-2 mt-2'>
-						{content}
-					</CardDescription>
+		<Card
+			className={`${type === 'grid' ? 'hover:shadow-lg transition-shadow' : 'border-0 shadow-none gap-4'}`}>
+			{type === 'grid' ? (
+				<Link to={`/post/${_id}`}>
+					<CardHeader>
+						<CardTitle className='text-2xl'>{title}</CardTitle>
+					</CardHeader>
 
 					<Separator className='py-1 bg-transparent' />
 
-					<div className='flex items-center justify-between gap-3 mb-3'>
-						{author && <p className='text-sm font-medium'>{author?.email}</p>}
+					{image && (
+						<CardContent>
+							<div className='relative aspect-video overflow-hidden rounded-lg'>
+								<img
+									src={image}
+									className='object-cover'
+									alt={title}
+								/>
+							</div>
+						</CardContent>
+					)}
 
-						{createdAt && (
-							<p className='text-xs text-muted-foreground'>
-								{format(new Date(createdAt), 'MMM d, yyyy')}
-							</p>
-						)}
-					</div>
-				</CardContent>
-			</Link>
+					<CardContent>
+						<CardDescription className='line-clamp-2 mt-2'>
+							{content}
+						</CardDescription>
+
+						<Separator className='py-1 bg-transparent' />
+
+						<div className='flex items-center justify-between gap-3 mb-3'>
+							{author && <p className='text-sm font-medium'>{author?.email}</p>}
+
+							{createdAt && (
+								<p className='text-xs text-muted-foreground'>
+									{format(new Date(createdAt), 'MMM d, yyyy')}
+								</p>
+							)}
+						</div>
+					</CardContent>
+				</Link>
+			) : (
+				<>
+					{image && (
+						<CardContent>
+							<div className='relative aspect-video overflow-hidden rounded-lg'>
+								<img
+									src={image}
+									className='object-cover w-full'
+									alt={title}
+								/>
+							</div>
+						</CardContent>
+					)}
+
+					<Separator className='py-1 bg-transparent' />
+
+					<CardHeader>
+						<CardTitle className='text-6xl text-center'>{title}</CardTitle>
+					</CardHeader>
+
+					<CardContent>
+						<CardDescription className='line-clamp-2 mt-2'>
+							{content}
+						</CardDescription>
+
+						<Separator className='py-1 bg-transparent' />
+
+						<div className='flex items-center justify-between gap-3 mb-3'>
+							{author && <p className='text-sm font-medium'>{author?.email}</p>}
+
+							{createdAt && (
+								<p className='text-xs text-muted-foreground'>
+									{format(new Date(createdAt), 'MMM d, yyyy')}
+								</p>
+							)}
+						</div>
+					</CardContent>
+				</>
+			)}
 
 			{user?._id === author?._id && (
 				<CardFooter className='flex justify-between'>
 					<Link
 						className='text-sm text-primary hover:underline'
-						to={`/edit/${_id}`}>
+						to={`/post/edit/${_id}`}>
 						Edit
 					</Link>
 					<Link

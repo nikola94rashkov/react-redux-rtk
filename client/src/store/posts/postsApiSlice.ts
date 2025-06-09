@@ -26,8 +26,8 @@ export const postsApiSlice = createApi({
 				query: ({ page = 1, limit = 10, userId }) =>
 					`/user/${userId}?page=${page}&limit=${limit}`,
 			}),
-			getPostById: build.query<PostDetails, string>({
-				query: (_id) => `/${_id}`,
+			getPostById: build.query<PostDetails, string | undefined>({
+				query: (_id) => `/${_id ?? ''}`,
 			}),
 			deletePost: build.mutation<void, string>({
 				query: (_id) => ({
