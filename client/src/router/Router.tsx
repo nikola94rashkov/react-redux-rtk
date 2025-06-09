@@ -32,11 +32,6 @@ const SinglePost = lazy(() =>
 		default: module.SinglePost,
 	})),
 )
-const EditPost = lazy(() =>
-	import('@/components/layouts/Posts/EditPost').then((module) => ({
-		default: module.EditPost,
-	})),
-)
 
 export const Router = () => {
 	return (
@@ -70,10 +65,6 @@ export const Router = () => {
 					<Route
 						path='/dashboard'
 						element={<Dashboard />}
-					/>
-					<Route
-						path='/post/edit/:postId'
-						element={<EditPost />}
 					/>
 				</Route>
 				<Route

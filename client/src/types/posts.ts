@@ -1,4 +1,15 @@
 import { UserDocument } from './user'
+import { Optional } from '@/types/utils.ts'
+
+export type PostFormProps = {
+	post?: {
+		_id: Optional<string>
+		title: string
+		content: string
+		image?: string
+	}
+	trigger: React.ReactNode
+}
 
 export type Post = {
 	_id?: string

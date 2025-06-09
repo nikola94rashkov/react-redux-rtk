@@ -1,11 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import {
-	Post,
-	PostDetails,
-	PostPagination,
-	PostsList,
-	PostsUpdate,
-} from '@/types'
+import { Post, PostDetails, PostPagination, PostsList } from '@/types'
 
 export const postsApiSlice = createApi({
 	reducerPath: 'posts',
@@ -36,7 +30,7 @@ export const postsApiSlice = createApi({
 				}),
 				invalidatesTags: [{ type: 'Posts', id: 'LIST' }],
 			}),
-			createPost: build.mutation<Post, Omit<Post, 'id'>>({
+			createPost: build.mutation<Post, FormData>({
 				query: (post) => ({
 					url: '',
 					method: 'POST',
@@ -44,7 +38,18 @@ export const postsApiSlice = createApi({
 				}),
 				invalidatesTags: [{ type: 'Posts', id: 'LIST' }],
 			}),
-			updatePost: build.mutation<Post, PostsUpdate>({
+			updatePost: build.mutation<
+				Post,
+				{
+					_id: PostDetails['_id']
+					post:
+						| FormData
+						| {
+								title: string
+								content: string
+						  }
+				}
+			>({
 				query: ({ post, _id }) => ({
 					url: `/${_id}`,
 					method: 'PUT',

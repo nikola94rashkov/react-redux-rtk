@@ -1,5 +1,7 @@
 import { PostDetails, PostType } from '@/types'
 import {
+	AlertModal,
+	Button,
 	Card,
 	CardContent,
 	CardDescription,
@@ -12,6 +14,10 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store.ts'
 import { Link } from 'react-router-dom'
 import { Separator } from '@/components/ui/separator.tsx'
+import { PostForm } from '@/components/layouts/Posts'
+import { useDeletePostMutation } from '@/store/posts/postsApiSlice.ts'
+import { toast } from 'sonner'
+import { useState } from 'react'
 
 type PostProps = {
 	type?: PostType
@@ -26,7 +32,23 @@ export const Post = ({
 	_id,
 	type = 'grid',
 }: PostProps) => {
+	const [isOpen, setIsOpen] = useState(false)
 	const { user } = useSelector((state: RootState) => state.authSlice)
+	const [deletePost] = useDeletePostMutation()
+
+	const handleDelete = async () => {
+		if (!_id) return
+
+		try {
+			await deletePost(_id)
+			toast.success('Post deleted successfully')
+		} catch (error) {
+			toast.error('Failed to delete post')
+			console.error('Error deleting post:', error)
+		} finally {
+			setIsOpen(false)
+		}
+	}
 
 	return (
 		<Card
@@ -111,16 +133,21 @@ export const Post = ({
 
 			{user?._id === author?._id && (
 				<CardFooter className='flex justify-between'>
-					<Link
-						className='text-sm text-primary hover:underline'
-						to={`/post/edit/${_id}`}>
-						Edit
-					</Link>
-					<Link
-						className='text-sm text-primary hover:underline'
-						to={`/edit/${_id}`}>
+					<PostForm
+						trigger='Edit'
+						post={{ title, content, image, _id }}
+					/>
+					<Button
+						variant='destructive'
+						onClick={() => setIsOpen(true)}>
 						Delete
-					</Link>
+					</Button>
+
+					<AlertModal
+						handleDelete={handleDelete}
+						isOpen={isOpen}
+						setIsOpen={setIsOpen}
+					/>
 				</CardFooter>
 			)}
 		</Card>

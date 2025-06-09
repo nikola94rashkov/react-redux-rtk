@@ -1,3 +1,2 @@
-export * from './CreatePost'
-export * from './EditPost'
+export * from '../../shared/PostList/PostForm'
 export * from './SinglePost'
